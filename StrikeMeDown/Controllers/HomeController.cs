@@ -54,5 +54,49 @@ namespace StrikeMeDown.Controllers
             }
 
         }
+
+        // Edit a Record
+        [HttpGet]
+        public IActionResult Edit(int bowlerID)
+        {
+            var bowler = _context.Bowlers.Single(x => x.BowlerID == bowlerID);
+            ViewBag.Teams = _context.Teams.ToList();
+            return View("AddBowler", bowler);
+        }
+
+        // Confirm Changes
+        [HttpPost]
+        public IActionResult Edit(Bowler b)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Update(b);
+                _context.SaveChanges();
+                return Redirect("Index");
+            }
+            else
+            {
+                ViewBag.Teams = _context.Teams.ToList();
+                return View("Index");
+            }
+        }
+
+        // Delete a Bowler
+        [HttpGet]
+        public IActionResult Delete(int bowlerID)
+        {
+            var bowler = _context.Bowlers.Single(x => x.BowlerID == bowlerID);
+            ViewBag.Teams = _context.Teams.ToList();
+            return View("Delete", bowler);
+        }
+
+        // Confirm Deletion
+        [HttpPost]
+        public IActionResult Delete(Bowler b)
+        {
+            _context.Bowlers.Remove(b);
+            _context.SaveChanges();
+            return Redirect("Index");
+        }
     }
 }

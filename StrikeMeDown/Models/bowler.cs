@@ -13,6 +13,7 @@ namespace StrikeMeDown.Models
         public int BowlerID { get; set; }
         public string BowlerLastName { get; set; }
         public string BowlerFirstName { get; set; }
+        [MaxLength(1)]
         public string BowlerMiddleInit { get; set; }
         public string BowlerAddress { get; set; }
         public string BowlerCity { get; set; }
